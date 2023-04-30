@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>NMFL - Admin Login</title>
+<meta charset="UTF-8">
+<!-- <meta name="viewport" content="width=1000"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" integrity="sha256-qM7QTJSlvtPSxVRjVWNM2OfTAz/3k5ovHOKmKXuYMO4=" crossorigin="anonymous"></script>
+<!-- include css content -->
+<style>
+.back {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+
+/* Set a style for all buttons */
+.login{
+  background-color: #08ab64;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:1;
+}
+
+
+
+/* Add padding to container elements */
+.container {
+  padding: 100px;
+}
+
+
+
+.slate{
+  width: 100%;
+  padding-right: 80px;
+  height: 500px;
+}
+
+.frames{
+  position: relative;
+  top:-30px;
+  width: 500px;
+  height: 550px;
+  margin: auto;
+  margin-top: 10px;
+  border-radius: 5%;
+}
+
+.admin-input-signup{
+  background: #e3e3e3;
+}
+
+.formframe{
+margin-left: 25px;
+margin-right: 25px;
+}
+
+html::-webkit-scrollbar {
+display: none;
+}
+
+hr {
+  margin-top : 20px;
+  margin-bottom : 30px;
+}
+
+.forgot{
+  line-height: .5em;
+text-decoration: none;
+font-size: .75em;
+float: right;
+margin-top: -10px;
+}
+
+.eye{
+  float: right;
+  margin-left: -50px;
+  margin-top: 25px;
+  position: relative;
+  z-index: 2;
+}
+
+#hide1{
+  display: none;
+}
+
+
+  </style>
+
+</head>
+<body class="w3-content" style="max-width:1450px">
+
+<!-- header content insertion -->
+<%- include('header.ejs')%>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main back " style="margin-left:250px">
+  <% if(message){%>
+    <div class = "alert alert-danger alert-dismissible fade show" style="background-color:dimgrey " role="alert">
+      <h6 style="color: #ddd;"><%=message%></h6>
+      <button type ="button" style="float: right; margin-top: -30px;"  class ="close" data-dismiss="alert">&times;</button>
+    </div>
+  <%}%>
+
+
+
+  <!-- Push down content on small screens -->
+  <div class="w3-hide-large" style="margin-top:83px"></div>
+
+ <div class="container wrap"  style="margin-top:0px; margin-right:1000px;width: 100%;">
+  <form action="/adminlogin" method ="post">
+    <div class=" slate">
+      <div style="margin-top:-10px;"  class="backcard">
+       <div class="w3-card w3-white frames">
+         <div class="w3-row w3-center">
+           <img style="margin-top:-25px;" width="80px" height="80px" src="https://s13639.pcdn.co/wp-content/uploads/2015/12/Android-App-Icon.png" alt="">
+         </div>
+         <div class="w3-row w3-center">
+           <h2><b>LOGIN</b></h2>
+         </div>
+         <hr>
+         <div class="w3-row w3-container formframe flex-parent">
+           <label for="">Email ID:</label>
+           <input type="text" class="w3-input w3-border" name="adminemail" placeholder = "Email" required>
+         </div>
+         <div class="w3-row w3-container formframe flex-parent">
+           <label for="">Password:</label>
+           <input type="password" class="w3-input w3-border" name="adminpassword" id = "myinput" placeholder = "Password" required>
+           <span class = "eye" onclick="myFunction()">
+            <i id="hide1" class="fa-solid fa-eye"></i>
+            <i id="hide2"class="fa-solid fa-eye-slash"></i>
+          </span>
+         </div>
+         <div class="w3-row w3-container formframe flex-parent">
+             <a style="text-decoration: none;" href="/forgotpassword"><font color="blue"> Forgot password?</font> </a>
+          </div>
+         <div style="margin-top:25px;" class="w3-row w3-container formframe">
+           <input type="submit" class="w3-button w3-input w3-pink login" name="" value="Login">
+         </div>
+         <div class="text-center">
+          Don't have an account? <a href="adminsignup" class="text-dark">Create One</a>
+        </div>
+       </div>
+
+
+       </div>
+      </div>
+    </div>
+  </form>
+<div class="py-3 border-0">
+
+
+
+<!-- Newsletter Modal -->
+<div id="newsletter" class="w3-modal">
+    <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
+      <div class="w3-container w3-white w3-center">
+        <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
+        <h2 class="w3-wide">NEWSLETTER</h2>
+        <p>Join our mailing list to receive updates on new arrivals and special offers.</p>
+        <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
+        <button type="button" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<script>
+
+
+// sidenavbar
+
+
+function validate(){
+  var sort_filter = document.getElementById("sort_filter");
+  var speciality_filter = document.getElementById('speciality_filter');
+  var filter_button = document.getElementById('filterbutton');
+
+  if(sort_filter.value || speciality_filter.value){
+    filter_button.innerHTML = "Filter &nbsp; <i class='fa fa-filter'></i> &nbsp; <i style='font-size:15px' class='fa w3-text-green'>&#xf058;</i>"
+  }else{
+    filter_button.innerHTML = "Filter &nbsp; <i class='fa fa-filter'></i>"
+  }
+
+  
+}
+
+function removeFilter(){
+    var filter_button = document.getElementById('filterbutton');
+    filter_button.innerHTML = "Filter &nbsp; <i class='fa fa-filter'></i>"
+}
+
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+
+// Open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+function myFunction(){
+      var x = document.getElementById("myinput");
+      var y = document.getElementById("hide1");
+      var z = document.getElementById("hide2");
+
+      if(x.type==="password"){
+        x.type = 'text';
+        y.style.display = "block";
+        z.style.display = "none";
+      }
+      else{
+        x.type = 'password';
+        y.style.display = "none";
+        z.style.display = "block";
+      }
+    }
+
+</script>
+
+
+
+<div class="w3-display-container bgimg2">
+  <div class="w3-display-middle w3-text-white w3-center">
+
+
+  </div>
+</div>
+
+
+
+
+</body>
+</html>

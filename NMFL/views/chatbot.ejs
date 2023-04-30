@@ -1,0 +1,202 @@
+<link rel="stylesheet" href="./css/chatbot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+   <!--Chat bot code-->
+    <div class="chat-icon">
+        <i class="fas fa-comment"></i>
+      </div>
+
+      <div class="chatbot" >
+        <div class="chat-header">
+          <h4>NMFLBot</h4>
+          <button class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="full-chat-block" id="mgs_area">
+              <div id="chatbox">
+                <h5 style="color: black;" id="chat-timestamp"></h5>
+                <p id="botStarterMessage2" class="botText"><span>Loading...</span></p>
+                <p id="botStarterMessage1" class="botText"><span>Loading...</span></p>
+          </div>
+        </div>
+          <div class="chat-bar-input-block">
+            <div id="userInput">
+            <input type="text" id="textInput" class="input-box" name="msg" placeholder="Type your message...">
+              <p></p>
+          </div>
+          <div class="chat-bar-icons">
+            <i id="chat-icon" style="color:crimson;" class="fa fa-fw fa-heart" onclick="heartButton()"></i>
+            <i id="chat-icon" style="color:#00bcd4;" class="fa fa-fw fa-send" onclick="sendButton()"></i>
+          </div>
+          <div id="chat-bar-bottom">
+            <p></p>
+        </div>
+          </div>
+
+
+      </div>
+      <script>
+        const chatIcon = document.querySelector(".chat-icon");
+    const chatbot = document.querySelector(".chatbot");
+    const closeBtn = document.querySelector(".close-btn");
+
+    chatIcon.addEventListener("click", function () {
+        if (chatbot.style.display === 'none') {
+      chatbot.style.display = "block";
+
+        }
+        else{
+            chatbot.style.display = "none";
+        }
+    });
+
+    closeBtn.addEventListener("click", function () {
+      chatbot.style.display = "none";
+    });
+    firstBotMessage();
+    SecondBotMessage();
+    thirdmessage();
+    function getTime(){
+let today = new Date();
+hours = today.getHours();
+minutes = today.getMinutes();
+if(hours<10){
+  hours = "0"+hours;
+}
+if(minutes<10){
+  minutes = "0"+minutes;
+}
+let time = hours + ":"+ minutes;
+return time
+}
+function firstBotMessage(){
+  let firstMessage = "Hello!!"
+  document.getElementById("botStarterMessage1").innerHTML='<p class="botText"><span>'+ firstMessage + '</span></p>';
+  let time = getTime();
+  $("#chat-timestamp").append(time);
+  document.getElementById("userInput").scrollIntoView(false);
+}
+function SecondBotMessage(){
+  let secondMessage = "Welcome to NMFL  Bot. The following keywords will help you to search:"
+  let keyword1 = "Support, Emergency, Accident"
+  //let secondMessage = "Word suggetions: Emergency, Help, Support, Accident, Headache, broken something"
+  document.getElementById("botStarterMessage2").innerHTML='<p class="botText"><span>'+ secondMessage + '<br>'+keyword1+'</span></p>';
+  document.getElementById("userInput").scrollIntoView(false);
+}
+
+function getHardResponse(userText){
+  let botResponse = getBotResponse(userText);
+  let botHtmll = '<p class="botText"><span>'+'<a href="/livesupport"/>'+botResponse+'</span></p>';
+  let botHtml = '<p class="botText"><span>'+botResponse+'</span></p>';
+  if(botResponse.includes("<a")){
+    $('#chatbox').append(botHtmll);
+    document.getElementById("mgs_area").scrollTop = document.getElementById("mgs_area").scrollHeight;
+  }
+  else{
+  $('#chatbox').append(botHtml);
+  document.getElementById("mgs_area").scrollTop = document.getElementById("mgs_area").scrollHeight;
+  }
+  document.getElementById("chat-bar-botom").scrollIntoView(true);
+
+}
+function getResponse(){
+  let userText = $("#textInput").val();
+  if(userText == ""){
+    userText = " ";
+  }
+  let userHtml = '<p class="userText"><span>'+userText+'</span></p>';
+  $('#textInput').val("");
+  $('#chatbox').append(userHtml);
+  document.getElementById("chat-bar-bottom").scrollIntoView(true);
+  setTimeout(() => {
+    getHardResponse(userText);
+  },1000)
+}
+function buttonSendText(sampleText){
+  let userHtml = '<p class="userText"><span>'+sampleText+'</span></p>';
+  $('#textInput').val("");
+  $('#chatbox').append(userHtml);
+  document.getElementById("chat-bar-bottom").scrollIntoView(true);
+  document.getElementById("mgs_area").scrollTop = document.getElementById("mgs_area").scrollHeight;
+}
+function sendButton(){
+  getResponse();
+  document.getElementById("mgs_area").scrollTop = document.getElementById("mgs_area").scrollHeight;
+}
+function heartButton(){
+buttonSendText("Heart clicked!");
+document.getElementById("mgs_area").scrollTop = document.getElementById("mgs_area").scrollHeight;
+}
+$("#textInput").keypress(function(e){
+  if(e.which==13){
+    getResponse();
+    document.getElementById("mgs_area").scrollTop = document.getElementById("mgs_area").scrollHeight;
+  }
+})
+
+function getBotResponse(input){
+  if(input == "Hello" || input == "hello"){
+    return "Hi, How can I help you?";
+  }
+  else if(input == "Hi"|| input == "hi"){
+    return "Hello, How can I help you?";
+  }
+  else if(input == " "){
+    return "please type something";
+  }
+
+  else if(input == "disease"|| input == "Disease"){
+    return "Please click on the <a href='/livesupport'>link</a> and provide the information, Is there any thing else that I can help you with?";
+  }
+  else if(input == "I'm feeling dizzy"|| input == "dizzy" || input== "feeling dizzy"){
+    return "Please sit down and take some deep breaths. If your dizziness persists, seek medical attention immediately";
+  }
+  else if(input == "I think I broke my arm"|| input == "arm broken" || input == "broken arm" || input == "broken" || input == "broken leg"){
+    return "It's important that you immobilize your broken part and seek medical attention immediately. You can use a splint or a sling to keep your broken part still.";
+  }
+  else if(input == "I have a headache"|| input == "headache" || input == "head ache" || input == "Headache" || input == "Head ache"){
+    return "What type of headache are you experiencing? Is it a dull ache, a sharp pain, or a migraine? Depending on the type of headache, there are different treatments available.";
+  }
+  else if(input == "dull" || input == "Dull" || input == "dull ache" || input == "Dull ache"){
+    return "Please click on the <a href='/livesupport'>link</a> to send more about the headache you are having, Is there any thing else that I can help you with?";
+  }
+  else if(input == "a sharp pain" || input == "sharp" || input == "Sharp" || input == "sharp pain"){
+    return "Please click on the <a href='/livesupport'>link</a> to send more about the headache you are having, Is there any thing else that I can help you with?";
+  }
+  else if(input == "migraine" || input == "Migraine" ){
+    return "Please click on the <a href='/livesupport'>link</a> and send the information we will send you the emergency team, Is there any thing else that I can help you with?";
+  }
+  else if(input == "Accident" || input == "accident" ){
+    return "Please click on the <a href='/livesupport'>link</a> and send the information we will send you the emergency team, Is there any thing else that I can help you with?";
+  }
+  else if(input == "Help" || input == "help" || input == "Emergency" || input == "emergency"){
+    return "Please click on the <a href='/livesupport'>link</a> to send the information, Is there any thing else that I can help you with?";
+  }
+  else if(input == "Support" || input == "support"){
+    return "Please click on the <a href='/livesupport'>link</a>, Is there any thing else that I can help you with?";
+  }
+  else if(input == "Yes" || input == "yes"){
+    return "Ok! How can I help you";
+  }
+  else if(input == "No" || input == "no"){
+    return "Thank you! Have an nice day, please feel free to ask me If there is anything else";
+  }
+  else if(input == "Ok" || input == "OK" || input == "okay" || input == "Okay" || input == "OKAY"){
+    return "Bye!!!";
+  }
+  else if(input == "Bye" || input == "bye"){
+    return "Bye!!!";
+  }
+  else{
+    return "Please breifly ask if you have any emergency! or else click on the <a href='/livesupport'>link</a> and send your detaied information we will get back to you, Is there any thing else that I can help you with?";
+  }
+}
+
+  const chatbox = document.getElementById('chatbox');
+  chatbox.scrollTop = chatbox.scrollHeight;
+
+
+      </script>
+
+    <!--Chat bot ENDS-->

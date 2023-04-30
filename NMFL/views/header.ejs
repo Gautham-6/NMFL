@@ -1,0 +1,32 @@
+
+<!-- Sidebar/menu -->
+<nav class="navs w3-sidebar w3-animate-top w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px;" id="mySidebar">
+  <div class="w3-container w3-display-container w3-padding-16">
+    <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+    <h3 class="w3-wide"><b><a onMouseOver="this.style.background='black'; this.style.color='white !important;'" onMouseOut="this.style.background='#052D55'" class="headerhover" style="background:#052D55;text-decoration:none;border-radius:8px;" href="/" style="text-decoration:none;" >&nbsp;<font color="orange">NMFL</font>&nbsp;</a></b></h3>
+  </div>
+  <hr>
+
+  <a href="/livesupport" class="w3-bar-item w3-text-blue w3-button w3-padding"><b>Support</b> </a>
+<hr>
+  <a href="javascript:void(0)" class="w3-bar-item w3-text-blue w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'"><b>Newsletter</b></a>
+<hr>
+  <a href="/homepage"  class="w3-bar-item w3-text-blue w3-button w3-padding"><b>Home Page</b></a>
+<hr>
+  <!-- <button class="w3-bottom w3-bar-item " type="button" name="button">Sign in</button> -->
+  <a href="/partnerlogin" style="width:230px;text-align:center;background:#052D55"  class=" creds w3-bar-item w3-text-white w3-margin-bottom w3-text-blue w3-padding w3-bottom" > <font color="orange" ><b>SIGN IN </b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-arrow-right"></i></font> </a>
+  <br>
+  <a href="/signup" style="width:230px;text-align:center;"  class=" creds2 w3-bar-item w3-text-white w3-margin-bottom w3-text-blue w3-padding w3-bottom"  > <font color="" ><b>REGISTER </b> &nbsp;&nbsp;&nbsp; <i class="fa fa-user"></i></font> </a>
+
+  <br>
+
+</nav>
+
+<!-- Top menu on small screens -->
+<header style="z-index:10;" class="w3-bar w3-top w3-hide-large w3-white w3-xlarge w3-card">
+  <div class="w3-bar-item w3-padding-24 w3-wide"><a style="background:#052D55;text-decoration:none;border-radius:8px;" href="/" style="text-decoration:none;" >&nbsp;<font color="orange">NMFL</font>&nbsp;</a></div>
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>

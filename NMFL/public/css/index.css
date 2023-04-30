@@ -1,0 +1,284 @@
+
+.w3-sidebar a {font-family: "Roboto", sans-serif}
+body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
+
+
+.back{
+  background-color: #f0f0f0;
+}
+.cards{
+  width:70%;
+  margin: auto;
+}
+
+.buttonsize{
+position: relative;
+  top: -1.5px;
+}
+
+.change::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: white;
+}
+.change:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: white;
+    opacity: 1;
+}
+.change::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: white;
+    opacity: 1;
+}
+.change:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: white;
+}
+
+.filters{
+  margin-top: 9px;
+}
+
+
+/* sidenap bar */
+
+
+.sidenav {
+  height: 100%;
+  width: 0px;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #159672;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.textinput{
+height: 40px;
+border: 1px solid black;
+/* border-radius: 30px; */
+}
+
+.creds{
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  background-color: #4285F4;
+  bottom: 90px;
+
+}
+
+.creds2{
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  background-color: #4285F4;
+  bottom: 45px;
+
+}
+.sponsored{
+  position: relative;
+  top:-2px;
+  left:-20px;
+}
+.aligncenter{
+  position: relative;
+  top: 8px;
+}
+
+.heading{
+  text-align: center;
+  }
+  /* Hero Section Styling */
+  .hero {
+    background-image: url('hero-image.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 100px 0;
+  }
+
+  .hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+  }
+
+  .hero p {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+  }
+
+  .hero button {
+    background-color: #fff;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  /* Hospital Details Section Styling */
+  .hospital-details {
+    padding: 100px 0;
+    text-align: center;
+  }
+  .borderph{
+    border-top: 4mm ridge rgba(50, 220, 217, 0.6);
+    border-bottom: 4mm ridge rgba(50, 220, 217, 0.6);
+  }
+
+  .hospital-details h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  .hospital-details ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hospital-details li {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+
+  .hospital-details strong {
+    font-weight: bold;
+  }
+
+
+  /* Treatments Section Styling */
+  .treatments {
+    background-color: #fff;
+    padding: 50px 0;
+    text-align: center;
+  }
+  .treatments h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  .treatments p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+
+  .treatments ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .treatments li {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  /* .w3-cell-row {
+    display: flex;
+  }
+
+  .w3-container {
+    flex:1;
+  }
+
+  .w3-card {
+    height: 100%;
+  } */
+
+.upbprder{
+  border-top: 1px solid #D3D3D3;
+  opacity: 0.5;
+}
+
+.checked {
+  color: orange;
+}

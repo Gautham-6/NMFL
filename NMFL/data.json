@@ -1,0 +1,187 @@
+[
+    {
+        "disease" : "Cough",
+        "treatment_time" : "1 hour",
+        "time_discharge" : "24 hours",
+        "Cost_of_treatment": "100"
+    },
+        {
+        "disease" : "fever",
+        "treatment_time" : "2 hours",
+        "time_discharge" : "5 hours",
+        "Cost_of_treatment": "100"
+    },
+        {
+        "disease" : "Cancer",
+        "treatment_time" : "30 days",
+        "time_discharge" : "45 days",
+        "Cost_of_treatment": "2000"
+    },
+        {
+        "disease" : "TB",
+        "treatment_time" : "12 hours",
+        "time_discharge" : "24 hours",
+        "Cost_of_treatment": "600"
+    },
+        {
+        "disease" : "Gas",
+        "treatment_time" : "2 hours",
+        "time_discharge" : "5 hours",
+        "Cost_of_treatment": "150"
+    },
+        {
+        "disease" : "Headach",
+        "treatment_time" : "1 hour",
+        "time_discharge" : "5 hours",
+        "Cost_of_treatment": "60"
+    },
+    {
+        "disease" : "Thalassemia",
+        "treatment_time" : "Lifetime management",
+        "time_discharge" : "1  month",
+        "Cost_of_treatment": "10000"
+    },
+    {
+        "disease" : "Diabetes",
+        "treatment_time" : "Lifetime management",
+        "time_discharge" : "1 month",
+        "Cost_of_treatment": "10000"
+    },
+    {
+        "disease" : "Osteoarthritis",
+        "treatment_time" : "Lifetime management",
+        "time_discharge" : "2 months",
+        "Cost_of_treatment": "8000"
+    },
+    {
+        "disease" : "Inflammatory bowel disease (IBD)",
+        "treatment_time" : "Lifetime management",
+        "time_discharge" : "1 month",
+        "Cost_of_treatment": "10000"
+    },
+    {
+        "disease" : "HIV",
+        "treatment_time" : "Lifetime management",
+        "time_discharge" : "1 month",
+        "Cost_of_treatment": "7000"
+    },
+    {
+        "disease" : "Hepatitis A",
+        "treatment_time" : "2-6 weeks",
+        "time_discharge" : "1 month",
+        "Cost_of_treatment": "1500"
+    },
+    {
+        "disease" : "Hepatitis B",
+        "treatment_time" : "4-6 weeks",
+        "time_discharge" : "1 month",
+        "Cost_of_treatment": "1900"
+    },
+    {
+        "disease" : "Hepatitis C",
+        "treatment_time" : "72 hours",
+        "time_discharge" : "5 days",
+        "Cost_of_treatment": "2000"
+    },
+    {
+        "disease" : "Yellow fever",
+        "treatment_time" : "48 hours",
+        "time_discharge" : "5 days",
+        "Cost_of_treatment": "500"
+    },
+    {
+        "disease" : "Chikungunya",
+        "treatment_time" : "100 hours",
+        "time_discharge" : "1 week",
+        "Cost_of_treatment": "800"
+    },
+    {
+        "disease" : "Dengue fever",
+        "treatment_time" : "48 hours",
+        "time_discharge" : "1 week",
+        "Cost_of_treatment": "1000"
+    },
+    {
+        "disease" : "Malaria",
+        "treatment_time" : "48 hours",
+        "time_discharge" : "1 week",
+        "Cost_of_treatment": "2000"
+    },
+    {
+        "disease" : "Tuberculosis",
+        "treatment_time" : "6-9 months",
+        "time_discharge" : "2 months",
+        "Cost_of_treatment": "20000"
+    },
+    {
+        "disease" : "Sinusitis",
+        "treatment_time" : "72 hours",
+        "time_discharge" : "5 days",
+        "Cost_of_treatment": "200"
+    },
+    {
+        "disease" : "Bronchitis",
+        "treatment_time" : "72 hours",
+        "time_discharge" : "1 week",
+        "Cost_of_treatment": "1500"
+    },
+    {
+        "disease" : "Pneumonia",
+        "treatment_time" : "72 hours",
+        "time_discharge" : "1 week",
+        "Cost_of_treatment": "200"
+    },
+            {
+        "disease" : "Influenza (Flu)",
+        "treatment_time" : "4 hours",
+        "time_discharge" : "24 hours",
+        "Cost_of_treatment": "400"
+    },        {
+        "disease" : "Common cold ",
+        "treatment_time" : "24 hours",
+        "time_discharge" : "2 days",
+        "Cost_of_treatment": "200"
+    },
+    {
+        "disease" : "Gout",
+        "treatment_time" : "48 hours",
+        "time_discharge" : "5 days",
+        "Cost_of_treatment": "600"
+    },
+    {
+        "disease" : "Heart attack ",
+        "treatment_time" : "72 hours",
+        "time_discharge" : "1 week",
+        "Cost_of_treatment": "8000"
+    },
+    {
+        "disease" : "Anemia",
+        "treatment_time" : "72 hours",
+        "time_discharge" : "1 week",
+        "Cost_of_treatment": "1500"
+    },
+    {
+        "disease" : "Accident",
+        "treatment_time" : "72 hours",
+        "time_discharge" : "1 week",
+        "Cost_of_treatment": "2000"
+    },
+    {
+        "disease" : "Leg injury",
+        "treatment_time" : "a month",
+        "time_discharge" : "1 week",
+        "Cost_of_treatment": "1500"
+    },
+    {
+        "disease" : "Body injury",
+        "treatment_time" : "a month",
+        "time_discharge" : "2 weeks",
+        "Cost_of_treatment": "4000"
+    },
+    {
+        "disease" : "Heart Attack",
+        "treatment_time" : "72 hours",
+        "time_discharge" : "1 week",
+        "Cost_of_treatment": "2000"
+    }
+]

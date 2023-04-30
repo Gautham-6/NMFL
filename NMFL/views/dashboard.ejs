@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>NMFL - Hospital Admin Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+}
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  /*position: fixed;*/
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: rgb(255, 0, 55);
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+h3 {
+  margin: 0;
+  color: #00544d;
+}
+
+.editbutton {
+
+  margin-left: auto; /* Push this element to the right */
+}
+
+.h5div {
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  background-color: #009688;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.description {
+  font-size: large;
+}
+
+.deletebutton{
+  margin-right: 10px;
+}
+
+nav {
+  background-color: #040706db;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  /* position: fixed;  */
+  top: 0;
+  width: 100%;
+}
+
+.navbar-left a {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar-right a {
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.navbar-right a:hover {
+  text-decoration: underline;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+</style>
+</head>
+
+<body class="w3-light-grey">
+  <nav style="display: none;" >
+    <div class="navbar-left">
+      <a href="/">NMFL</a>
+    </div>
+    <div class="navbar-right">
+      <form action="/hospitalDashboardLogout" method="post">
+      <button class="btn" id="edithospitaldata" type="submit">Logout</button>
+    </form>
+    </div>
+  </nav>
+<br><br><br>
+  <!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-bar-block w3-black w3-animate-right w3-top w3-text-light-grey w3-large" style="z-index:3;width:250px;font-weight:bold;display:none;right:0;" id="mySidebar">
+  <a href="javascript:void()" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-32">CLOSE</a>
+  <a href="#insurance" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">Insurance</a>
+  <a href="#doctordetails" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">Doctor details</a>
+  <a href="/hospitalDashboardLogout" onclick="w3_close()" class="w3-bar-item w3-button w3-center w3-padding-16">Logout</a>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-white w3-xlarge w3-padding-16">
+  <span class="w3-left w3-padding"><a href="/" style="text-decoration: none;">NMFL</a></span>
+  <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+
+
+
+<!-- Page Container -->
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+  <!-- The Grid -->
+  <div class="w3-row-padding">
+
+    <!-- Left Column -->
+    <div class="w3-third">
+
+      <div class="w3-white w3-text-grey w3-card-4">
+        <% let gethospitaldata=hospital_data%>
+        <img width="100%" src="<%=gethospitaldata[0].HospitalImage%>" alt="">
+        <div class="w3-container" id="hospitalDetails">
+
+           <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-building fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i><%=gethospitaldata[0].HospitalName%></h2>
+          <p><i class="fa fa fa-map-marker fa-fw w3-margin-right w3-large w3-text-teal"></i><%=gethospitaldata[0].HospitalAddress%>, <%=gethospitaldata[0].HospitalCity%>, <%=gethospitaldata[0].HospitalState%>, <%=gethospitaldata[0].HospitalPincode%></p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><%=gethospitaldata[0].HospitalAdminEmail%></p>
+          <p><h8 class=""><i class="fa fa-camera fa-fw w3-margin-right w3-xlarge w3-text-teal"></i><%=gethospitaldata[0].HospitalImage%></h2></p>
+          <button class="w3-text-grey w3-padding-16 w3-margin-bottom" id="edithospitaldata"  onclick="openHospitalInformationEditDialogue()">Edit Details</button>
+          </div>
+          <div  class="form-popup" id="editHospitalDetaildialogue">
+          <form action="/editHospitalDetails" method="post">
+          <label for=""> Hoispital Name</label><input type="text" name="hname" value="<%=gethospitaldata[0].HospitalName%>" class="w3-input" id="">
+          <label for=""> zip_code</label><br><input class="w3-input" type="text" name="hzipcode" value="<%=gethospitaldata[0].HospitalPincode%>"><br>
+          <label for=""> City</label><br><input class="w3-input" type="text" name="hcity" value="<%=gethospitaldata[0].HospitalCity%>"><br>
+          <label for=""> State</label><br><input class="w3-input" type="text" name="hstate" value="<%=gethospitaldata[0].HospitalState%>"><br>
+          <label for=""> Address</label><br><input class="w3-input" type="text" name="haddress" value="<%=gethospitaldata[0].HospitalAddress%>"><br>
+          <label for="">Managedby</label><br><input class="w3-input" type="text" name="hmanagedby" value="<%=gethospitaldata[0].HospitalAdminEmail%>"><br>
+          <label for="">Photo URL</label><br><input class="w3-input" type="text" name="hPhotoURL" value="https://thumbs.dreamstime.com/b/hospital-building-modern-parking-lot-59693686.jpg"><br>
+          <button type="submit" class="btn w3-padding-16 w3-margin-bottom">Update details</button>
+          <button type="button" class="btn  w3-padding-16 w3-margin-bottom cancel" onclick="closeHospitalDetailEditDialogue()">Cancel</button>
+          </form>
+          </div>
+
+      </div><br>
+      <div >
+        <br><br>
+
+                <div class="w3-col w3-card">
+                  <p style="text-align: center;" >Message admin</p>
+                  <form class="w3-container w3-card-4 w3-padding-16" style="background:#0e2747" action="/livesupport" method="post" >
+
+                  <div class="w3-section">
+                    <label><font color="#1ba69a" >Name*</font></label>
+                    <input style="border:0px;" class="w3-input" type="text" name="supportname" required>
+                  </div>
+                  <div class="w3-section">
+                    <label><font color="#1ba69a" >Email*</font></label>
+                    <input style="border:0px;" class="w3-input" type="email" name="supportemail" required>
+                  </div>
+                  <div class="w3-section">
+                    <label><font color="#1ba69a" >Phone Number (+1)</font></label>
+                    <input style="border:0px;" class="w3-input" type="number" name="supportphone" required>
+                  </div>
+                  <div class="w3-section">
+                    <label><font color="#1ba69a" >Message*</font></label>
+                    <input style="border:0px;" class="w3-input" type="text" name="supportmessage" required>
+                  </div>
+
+                  <button type="submit" class=" w3-right "><font color="#1ba69a" >Send &nbsp;&nbsp;<i class="fa fa-arrow-right" style="font-size:18px;color:teal"></i></font></button>
+                  </form>
+                </div>
+      </div>
+
+    <!-- End Left Column -->
+    </div>
+
+
+
+    <!-- Right Column -->
+    <div class="w3-twothird">
+
+      <div style= "height: 450px;overflow-y: scroll;" class="w3-container w3-card w3-white w3-margin-bottom" >
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-stethoscope fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Hospital Specality</h2>
+        <div class="w3-container" id="dispayInsurancedetails">
+          <% let getfeaturesdata=featuredata%>
+          <% for (let id=0,i=0; i<getfeaturesdata.length; i++,id++) { %>
+            <div class="h5div">
+              <h3><%=getfeaturesdata[i].FeatureName%></h3>
+              <div class="editbutton">
+                <button class="btn deletebutton" id="deleteFeature<%=id%>" onclick="openFeatureDeleteDialogue(this)"><i class="fa fa-trash"></i></button>
+                <button class="btn editbutton" id="editFeature<%=id%>" onclick="openFeatureEditDialogue(this)"><i class="fa fa-edit"></i></button>
+              </div>
+            </div>
+            <p class="description"><%=getfeaturesdata[i].FeatureDescription%></p>
+            <hr>
+            <div class="form-popup" id="Feature<%=id%>">
+              <form action="/hospitalFeatureEdit" class="form-container" method="post">
+                <label for="featureName"><b>Feature Name</b></label>
+                <input type="text"  name="editfeaturename" value="<%=getfeaturesdata[i].FeatureName%>"required>
+                <input type="hidden" name="hiddeneditfeaturename" value="<%=getfeaturesdata[i].FeatureName%>">
+
+                <label for="featureDescription"><b>Description</b></label>
+                <input type="text"  name="editFeaturedescription" value="<%=getfeaturesdata[i].FeatureDescription%>" required>
+                <input type="hidden" name="hiddeneditfeaturedescription" value="<%=getfeaturesdata[i].FeatureDescription%>">
+                <button type="submit" id="editaddFeatures<%=id%>" class="btn">Edit details</button>
+                <button type="button" id="cancelFeatures<%=id%>" class="btn cancel" onclick="closeFeatureEditDialogue(this)">Cancel</button>
+              </form>
+            </div>
+            <div class="form-popup" id="featureDeletePopup<%=id%>">
+              <form action="/hospitalfeaturedelete" method="post">
+                <input type="hidden" name="hiddeneditfeaturename" value="<%=getfeaturesdata[i].FeatureName%>">
+                <input type="hidden" name="hiddeneditfeaturedescription" value="<%=getfeaturesdata[i].FeatureDescription%>">
+                <h2>Do you want to delete the information about "<%=getfeaturesdata[i].FeatureName%>"</h2>
+                <button type="submit" id="Add<%=id%>" class="btn">Delete</button>
+                <button type="button" id="cancelDeleteFeature<%=id%>" class="btn cancel" onclick="closeFeatureDeleteDialogue(this)">Cancel</button>
+              </form>
+            </div>
+            <script>
+              function openFeatureDeleteDialogue(that){
+                let id = that.id.replace("deleteFeature", "");
+                document.getElementById("featureDeletePopup"+id).style.display = "block";
+              }
+              function closeFeatureDeleteDialogue(that){
+                let id = that.id.replace("cancelDeleteFeature", "");
+                document.getElementById("featureDeletePopup"+id).style.display = "none";
+              }
+              function openFeatureEditDialogue(that){
+                let id = that.id.replace("editFeature", "");
+                  document.getElementById("Feature"+id).style.display = "block";
+              }
+              function closeFeatureEditDialogue(that){
+                let id = that.id.replace("cancelFeatures", "")
+                  document.getElementById("Feature"+id).style.display = "none";
+              }
+            </script>
+            <%}%>
+        </div>
+        <button class="w3-text-grey w3-padding-16 w3-margin-bottom" id="addSpeciality" onclick="openHospitalFeatureForm()">Add Details</button>
+        <div class="form-popup" id="hospitalFeatureForm">
+            <form action="/hospitalFeature" class="form-container" method="post">
+              <label for="featureName"><b>Faeture name</b></label>
+              <input type="text"  name="featurename" required>
+
+              <label for="featureDescription"><b>Description</b></label>
+              <input type="text"  name="featuredescription" required>
+
+              <button type="submit" class="btn">Add details</button>
+              <button type="button" class="btn cancel" onclick="closeHospitalFeatureForm()">Cancel</button>
+            </form>
+          </div>
+      </div>
+      <div id="insurance" style= "height: 450px;overflow-y: scroll;" class="w3-container w3-card w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-id-card-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Insurance</h2>
+        <div class="w3-container" id="dispayInsurancedetails">
+          <% let getinsurancedata=data%>
+          <% for (let id=0, i=0; i<getinsurancedata.length; i++, id++) { %>
+            <div class="h5div">
+              <h3><%=getinsurancedata[i].InsuranceName%></h3>
+            <div class="editbutton">
+              <button class="btn deletebutton" id="deleteInsurance<%=id%>" onclick="openInsuranceDeleteDialogue(this)"><i class="fa fa-trash"></i></button>
+              <button class="btn editbutton" id="editInsurance<%=id%>"  onclick="openInsuranceEditDialogue(this)"><i class="fa fa-edit"></i></button>
+            </div>
+            </div>
+            <p class="description"><%=getinsurancedata[i].InsuranceDescription%></p>
+            <hr>
+            <div class="form-popup" id="insurancePopup<%=id%>">
+              <form action="/hospitalinsuranceEdit" class="form-container" method="post">
+                <label for="insuranceName"><b>Insurance Name</b></label>
+                <input type="text"  name="editinsurancename" value="<%=getinsurancedata[i].InsuranceName%>"required>
+                <input type="hidden" name="hiddeneditinsurancename" value="<%=getinsurancedata[i].InsuranceName%>">
+                <label for="insuranceDescription"><b>Description</b></label>
+                <input type="text"  name="editinsurancedescription" value="<%=getinsurancedata[i].InsuranceDescription%>" required>
+                <input type="hidden" name="hiddeneditinsurancedescription" value="<%=getinsurancedata[i].InsuranceDescription%>">
+                <button type="submit" id="Add<%=id%>" class="btn">Add details</button>
+                <button type="button" id="cancelEditInsurance<%=id%>" class="btn cancel" onclick="closeInsuranceEditDialogue(this)">Cancel</button>
+              </form>
+            </div>
+            <div class="form-popup" id="insuranceDeletePopup<%=id%>">
+              <form action="/hospitalinsurancedelete" method="post">
+                <input type="hidden"  name="hiddeneditinsurancename" value="<%=getinsurancedata[i].InsuranceName%>"required>
+                <input type="hidden" name="hiddeneditinsurancedescription" value="<%=getinsurancedata[i].InsuranceDescription%>">
+                <h2>Do you want to delete the information about "<%=getinsurancedata[i].InsuranceName%>"</h2>
+                <button type="submit" id="Add<%=id%>" class="btn">Delete</button>
+                <button type="button" id="cancelDeleteInsurance<%=id%>" class="btn cancel" onclick="closeInsuranceDeleteDialogue(this)">Cancel</button>
+              </form>
+            </div>
+
+            <script>
+              function openInsuranceDeleteDialogue(that){
+                let id = that.id.replace("deleteInsurance", "");
+                document.getElementById("insuranceDeletePopup"+id).style.display = "block";
+              }
+              function closeInsuranceDeleteDialogue(that){
+                let id = that.id.replace("cancelDeleteInsurance", "");
+                document.getElementById("insuranceDeletePopup"+id).style.display = "none";
+              }
+              function openInsuranceEditDialogue(that){
+                let id = that.id.replace("editInsurance", "");
+                  document.getElementById("insurancePopup"+id).style.display = "block";
+              }
+              function closeInsuranceEditDialogue(that) {
+                let id = that.id.replace("cancelEditInsurance", "")
+                  document.getElementById("insurancePopup"+id).style.display = "none";
+              }
+            </script>
+            <%}%>
+        </div>
+        <button class="w3-text-grey w3-padding-16 w3-margin-bottom" id="addinsurance" onclick="openHospitalInsuranceForm()">Add Details</button>
+        <div class="form-popup" id="hospitalInsuranceForm">
+            <form action="/hospitalinsurance" class="form-container" method="post">
+              <label for="insuranceName"><b>Insurance Name</b></label>
+              <input type="text"  name="insurancename" required>
+
+              <label for="insuranceDescription"><b>Description</b></label>
+              <input type="text"  name="insurancedescription" required>
+
+              <button type="submit" class="btn">Add details</button>
+              <button type="button" class="btn cancel" onclick="closeHospitalInsuranceForm()">Cancel</button>
+            </form>
+          </div>
+      </div>
+      <div id="doctordetails" style= "height: 450px;overflow-y: scroll;" class="w3-container w3-card w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-id-card-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Doctor Details</h2>
+        <div class="w3-container" id="dispayDoctordetails"></div>
+        <% let doctorData=doctorDetails%>
+        <% for (let id=0, i=0; i<doctorData.length; i++, id++) { %>
+          <div class="h5div">
+            <h3><%=doctorData[i].DoctorName%></h3>
+            <div class="editbutton">
+              <button class="btn deletebutton" id="deleteDoctor<%=id%>" onclick="openDoctorDeleteDialogue(this)"><i class="fa fa-trash"></i></button>
+              <button class="btn editbutton" id="editDoctor<%=id%>"  onclick="openDoctorEditDialogue(this)"><i class="fa fa-edit"></i></button>
+            </div>
+          </div>
+          <p class="description"><%=doctorData[i].DoctorSpecialization%></p>
+          <p class="description"><%=doctorData[i].DoctorPhonenumber%>,  <%=doctorData[i].DoctorEmail%> </p>
+          <p><h8 class=""><i class="fa fa-camera fa-fw w3-margin-right w3-xlarge w3-text-teal"></i> <%=doctorData[i].DoctorImage%></h2></p>
+          <hr>
+          <div class="form-popup" id="doctorEditPopup<%=id%>">
+            <form action="/hospitalDoctorEdit" class="form-container" method="post">
+              <label for="doctorName"><b>Doctor Name</b></label>
+              <input type="text"  name="editdoctorname" value="<%=doctorData[i].DoctorName%>"required>
+              <input type="hidden" name="hiddeneditdoctorname" value="<%=doctorData[i].DoctorName%>">
+              <label for="doctorSpecialization"><b>Specialization</b></label>
+              <input type="text"  name="editdoctorSpecialization" value="<%=doctorData[i].DoctorSpecialization%>" required>
+              <input type="hidden" name="hiddeneditdoctorSpecialization" value="<%=doctorData[i].DoctorSpecialization%>">
+              <label for="doctorEmail"><b>Email Address</b></label>
+              <input type="text"  name="editdoctorEmail" value="<%=doctorData[i].DoctorEmail%>" required>
+              <input type="hidden" name="hiddeneditdoctorEmail" value="<%=doctorData[i].DoctorEmail%>">
+              <label for="doctorPhone"><b>Contact Number</b></label>
+              <input type="text"  name="editdoctorPhone" value="<%=doctorData[i].DoctorPhonenumber%>" required>
+              <input type="hidden" name="hiddeneditdoctorPhone" value="<%=doctorData[i].DoctorPhonenumber%>">
+              <label for="doctorPicture"><b>Doctor Picture URL</b></label>
+              <input type="text"  name="editdoctorPhotoURL" value="<%=doctorData[i].DoctorImage%>" required>
+              <input type="hidden" name="hiddeneditdoctorPhotoURL" value="<%=doctorData[i].DoctorImage%>">
+              <button type="submit" id="editDoctor<%=id%>" class="btn">Add details</button>
+              <button type="button" id="cancelEditDoctor<%=id%>" class="btn cancel" onclick="closeDoctorEditDialogue(this)">Cancel</button>
+            </form>
+          </div>
+          <div class="form-popup" id="doctorDeletePopup<%=id%>">
+            <form action="/hospitaldoctordelete" method="post">
+              <input type="hidden"  name="hiddendeletedoctorname" value="<%=doctorData[i].DoctorName%>">
+              <input type="hidden" name="hiddendeletedoctoremail" value="<%=doctorData[i].DoctorEmail%>">
+              <h2>Do you want to delete the information about "<%=doctorData[i].DoctorName%>"</h2>
+              <button type="submit" id="deleteDoctorButton<%=id%>" class="btn">Delete</button>
+              <button type="button" id="cancelDeleteInsurance<%=id%>" class="btn cancel" onclick="closeDoctorDeleteDialogue(this)">Cancel</button>
+            </form>
+          </div>
+          <script>
+             function openDoctorDeleteDialogue(that){
+                let id = that.id.replace("deleteDoctor", "");
+                document.getElementById("doctorDeletePopup"+id).style.display = "block";
+              }
+              function closeDoctorDeleteDialogue(that){
+                let id = that.id.replace("cancelDeleteInsurance", "");
+                document.getElementById("doctorDeletePopup"+id).style.display = "none";
+              }
+             function openDoctorEditDialogue(that){
+                let id = that.id.replace("editDoctor", "");
+                  document.getElementById("doctorEditPopup"+id).style.display = "block";
+              }
+              function closeDoctorEditDialogue(that) {
+                let id = that.id.replace("cancelEditDoctor", "")
+                  document.getElementById("doctorEditPopup"+id).style.display = "none";
+              }
+            </script>
+          <%}%>
+          <button class="w3-text-grey w3-padding-16 w3-margin-bottom" id="addDoctor" onclick="openHospitalDoctorForm()">Add Details</button>
+        <div class="form-popup" id="DoctorForm">
+          <form action="/doctorInfoAdd" class="form-container" method="post">
+            <label for="doctorName"><b>Doctor Name</b></label>
+            <input type="text"  name="doctorName" required>
+
+            <label for="doctorSpecialization"><b>Specialization</b></label>
+            <input type="text"  name="Specialization" required>
+
+            <label for="doctorEmail"><b>Email Address</b></label>
+            <input type="text"  name="doctorEmailaddress" required>
+
+            <label for="doctorPhone"><b>Contact Number</b></label>
+            <input type="text"  name="doctorphoneNumber" required>
+
+            <label for="doctorPhone"><b>Doctor Image URL</b></label>
+            <input type="text"  name="doctorImageURL">
+
+            <button type="submit" class="btn">Add details</button>
+            <button type="button" class="btn cancel" onclick="closeDoctorForm()">Cancel</button>
+          </form>
+          </div>
+          </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+<script>
+
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+
+
+
+    function openHospitalFeatureForm() {
+      document.getElementById("addSpeciality").style.display = "none";
+      document.getElementById("hospitalFeatureForm").style.display = "block";
+    }
+
+    function closeHospitalFeatureForm() {
+      document.getElementById("hospitalFeatureForm").style.display = "none";
+      document.getElementById("addSpeciality").style.display = "block"
+    }
+
+    function openHospitalInsuranceForm() {
+      document.getElementById("addinsurance").style.display = "none";
+      document.getElementById("hospitalInsuranceForm").style.display = "block";
+    }
+
+    function closeHospitalInsuranceForm() {
+
+      document.getElementById("hospitalInsuranceForm").style.display = "none";
+      document.getElementById("addinsurance").style.display = "block"
+    }
+
+    function openHospitalDoctorForm(){
+      document.getElementById("addDoctor").style.display = "none";
+      document.getElementById("DoctorForm").style.display = "block";
+    }
+
+    function closeDoctorForm(){
+      document.getElementById("DoctorForm").style.display = "none";
+      document.getElementById("addDoctor").style.display = "block";
+    }
+    function openHospitalInformationEditDialogue(){
+      document.getElementById("hospitalDetails").style.display = "none";
+      document.getElementById("editHospitalDetaildialogue").style.display = "block";
+    }
+
+    function closeHospitalDetailEditDialogue(){
+      document.getElementById("hospitalDetails").style.display = "block";
+      document.getElementById("editHospitalDetaildialogue").style.display = "none";
+    }
+
+    //error message diaplay block
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorMessage = urlParams.get("error");
+    if (errorMessage) {
+
+      window.alert(errorMessage);
+    }
+
+    </script>
+</body>
+</html>

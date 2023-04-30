@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>NMFL - Homepage</title>
+<meta charset="UTF-8">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="./css/chatbot.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<% var maplink = locals.gmaplink %>
+<script src=<%=maplink%> defer></script>
+
+<!-- include css content -->
+<link rel="stylesheet" href="/css/index.css">
+</head>
+<style media="screen">
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+
+}
+
+/* alert bar  */
+.alert {
+  padding: 20px;
+  background-color: #78183e;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+
+</style>
+
+<body onload="randomImage()" class="w3-content" style="max-width:1450px">
+  <%if(locals.data){%>
+      <% var datainfo = locals.data %>
+  <%}else{%>
+    <% var datainfo = "" %>
+    <%}%>
+  <%var latinfo = 0.0; %>
+  <%var longinfo = 0.0; %>
+  <% if (locals.latlng) { %>
+    <%var latinfo = latlng.lat; %>
+    <%var longinfo = latlng.lng; %>
+  <%}%>
+
+<!-- header content insertion -->
+<%- include ('header.ejs') %>
+
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main back " style="margin-left:250px">
+  <!--chat bot insertions-->
+  <%- include ('chatbot.ejs') %>
+  <!-- Push down content on small screens -->
+  <div class="w3-hide-large" style="margin-top:83px"></div>
+  <%if(locals.citywarning){%>
+    <div class="alert">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      &nbsp;&nbsp;&nbsp;  <strong style="background: black;border-radius: 20px;" > &nbsp; Error! &nbsp;</strong> <%=locals.citywarning%>
+    </div>
+    <%}%>
+
+<form class="" action="/searchhospitals" method="post">
+  <!-- Top header -->
+<div class="w3-container">
+  <div class="w3-row">
+    <div class="w3-col m3 w3-margin">
+      <label class="switch">
+        <input id="slider" type="checkbox" onclick="toggleinput()" name="slider" value="sliderstate">
+        <span class="slider round"></span>
+      </label>
+      <span class="w3-margin-left aligncenter">Allow location re-center</span>
+    </div>
+    <div class="w3-col m8">
+      <%if(locals.cityname){%>
+        <input id="city" class="w3-margin textinput" name="cityvalue" style="width:350px;" type="text" id="City" value="<%=locals.cityname%>" placeholder="&nbsp;Enter city" required >
+      <%}else{%>
+        <input id="city" class="w3-margin textinput" name="cityvalue" style="width:350px;" type="text" id="City"  placeholder="&nbsp;Enter city / zip code" required >
+      <%}%>
+      <button id="submitbutton" type="submit" class="w3-button buttonsize w3-black w3-margin" name="search">Search &nbsp; <i class='fa fa-location-arrow'></i> </button>
+      <button id="filterbutton" type="submit" onclick="openNav(); return false;" class="w3-button buttonsize w3-black w3-margin" name="search"> Filter &nbsp; <i class='fa fa-filter'></i> </button>
+    </div>
+  </div>
+
+</div>
+
+  <!-- Image header -->
+  <div class="w3-display-container w3-container">
+<div class="w3-card w3-border w3-shadow" style="width:100%;height:400px;border-radius:25px;" id="map"></div>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn w3-text-orange" onclick="closeNav()">&times;</a>
+<div class="w3-container">
+  <p class="w3-text-white w3-margin">Apply Filters</p>
+  <div class="w3-container filters">
+    <select id="sort_filter" onchange="validate()" class="selectpicker w3-input fa" name="sortvalue" style="border-radius: 20px;"  data-style="btn-primary">
+    <option disabled selected data-icon="glyphicon glyphicon-music">Sort By</option>
+    <option data-icon="glyphicon glyphicon-music" value="rating" >Ratings</option>
+    <option data-icon="glyphicon glyphicon-star" value="best_match">Best Over All</option>
+    <option data-icon="glyphicon glyphicon-heart" value="review_count" >Review Count</option>
+</select>
+  </div>
+  <div class="w3-container filters">
+
+    <select id="speciality_filter" onchange="validate()" class="selectpicker w3-input fa" name="speciality" style="border-radius: 20px;"  data-style="btn-primary">
+              <option value="" disabled selected data-icon="fa fa-filter">&#xf013; &nbsp;&nbsp; Speciality</option>
+              <option disabled data-icon="glyphicon glyphicon-music">B</option>
+              <option data-icon='glyphicon-star' value='blooddonation'>Blood and Plasma Donation Center</option>
+              <option disabled data-icon="glyphicon glyphicon-music">C</option>
+              <option data-icon='glyphicon-star' value='cardiology'>Cardiologists</option>
+              <option data-icon='glyphicon-star' value='c_and_mh'>Counseling and Mental Health</option>
+              <option data-icon='glyphicon-star' value='crisispregnancycenters'>Crisis Pregnancy Ceter</option>
+              <option disabled data-icon="glyphicon glyphicon-music">D</option>
+              <option data-icon='glyphicon-star' value='dermatology'>Dermatology</option>
+              <option data-icon='glyphicon-star' value='diagnosticservices'>Diagonostic Services</option>
+              <option disabled data-icon="glyphicon glyphicon-music">E</option>
+              <option data-icon='glyphicon-star' value='earnosethroat'>Ear Node Throat ENT</option>
+              <option data-icon='glyphicon-star' value='emergencymedicine'>Emergency Medicine</option>
+              <option data-icon='glyphicon-star' value='emergencyrooms'>Emergency Rooms</option>
+              <option disabled data-icon="glyphicon glyphicon-music">G</option>
+              <option data-icon='glyphicon-star' value='generaldentistry'>General Dentistry</option>
+              <option data-icon='glyphicon-star' value='surgeons'>General Surgeons</option>
+              <option disabled data-icon="glyphicon glyphicon-music">L</option>
+              <option data-icon='glyphicon-star' value='laserlasikeyes'>Laser Eye Surgery</option>
+              <option disabled data-icon="glyphicon glyphicon-music">N</option>
+              <option data-icon='glyphicon-star' value='nephrologists'>Nephrologists</option>
+              <option data-icon='glyphicon-star' value='neurologist'>Neurologist</option>
+              <option data-icon='glyphicon-star' value='nutritionists'>Nutritionists</option>
+              <option disabled data-icon="glyphicon glyphicon-music">O</option>
+              <option data-icon='glyphicon-star' value='oncologist'>Oncologist</option>
+              <option data-icon='glyphicon-star' value='opthamalogists'>Opthamalogists</option>
+              <option data-icon='glyphicon-star' value='oralsurgeons'>Oral Surgeons</option>
+              <option data-icon='glyphicon-star' value='orthopedists'>Orthopedists</option>
+              <option data-icon='glyphicon-star' value='otologists'>Otologists</option>
+              <option disabled data-icon="glyphicon glyphicon-music">P</option>
+              <option data-icon='glyphicon-star' value='pediatricians'>Pediatricians</option>
+              <option data-icon='glyphicon-star' value='phlebologists'>Phlebologists</option>
+              <option disabled data-icon="glyphicon glyphicon-music">R</option>
+              <option data-icon='glyphicon-star' value='radiologists'>Radiologists</option>
+              <option data-icon='glyphicon-star' value='rehabilitation_center'>Rehabilitation Center</option>
+              <option disabled data-icon="glyphicon glyphicon-music">S</option>
+              <option data-icon='glyphicon-star' value='spinesurgeons'>Spinesurgeons</option>
+
+            </select>
+  </div>
+  <div class="w3-container filters">
+    <label class="w3-text-white" for="">Include pharmacies?</label>
+    <input id="pharma" type="checkbox" name="pharmacy" value="include">
+  </div>
+  <div class="w3-margin">
+    <input id="access-lat-id" type="text" style="display:none;" name="access_lat_value" value="">
+    <input id="access-long-id" type="text" style="display:none;" name="access_long_value" value="">
+    <button  type="button" style="width:185px;border-radius: 20px; height:30px;" onclick="closeNav()" class="w3-button w3-orange  w3-container filters"  name="button">ADD</button>
+    <button onclick="removeFilter()"  type="reset" style="width:185px;border-radius: 20px;height:30px;" class="w3-button w3-orange  w3-container filters"  name="button">RESET</button>
+
+  </div>
+</div>
+
+</div>
+
+  </div>
+</form>
+
+  <div style="overflow-y: auto;height: 600px;" class="listdata">
+    <%if(locals.data){%>
+      <% for(var i=0; i < locals.data.length; i++){%>
+        <% if(locals.data[i].tag=='Sponsored'){%>
+          <form action="hospital" method="post">
+            <input style="display:none;" type="text" name="hospitalid" value="<%=locals.data[i].id %>">
+            <input style="display:none;" type="text" name="hospitalref" value="">
+            <input style="display:none;" type="text" name="hospitalPrimarySession" value="">
+            <input style="display:none;" type="text" name="hospitaltag" value="<%=locals.data[i].tag %>">
+      <div id="<%=locals.data[i].id%>"  class="w3-container cards w3-margin-top w3-margin-bottom w3-white  w3-border w3-card">
+        <%if(locals.data[i].tag){%>
+          <div class="sponsored w3-card" style="background:black;width:115px;">
+            <font color="white">&nbsp;
+              <span class="fa fa-star w3-text-orange"></span>&nbsp;&nbsp;<%=locals.data[i].tag%>
+            </font>
+          </div>
+        <%}%>
+        <div class="w3-row w3-margin" style="">
+          <%if(locals.data[i].image_url){%>
+            <input type="hidden" id="hosimage" name = "hosimage" value="<%=locals.data[i].image_url%>">
+          </input>
+          <div class="w3-col m3 w3-card w3-shadow" style="border-radius: 10px;text-shadow: 5px 5px 0px #2dc7ff">
+            <img style="text-shadow: 5px 5px 0px #2dc7ff; border-radius: 10px;" class="w3-card" style="object-fit:cover;object-position:50% 50%;" width="100%" height="120px" src="<%=locals.data[i].image_url%>" alt="Hospital Image">
+          </div>
+          <%}else{%>
+            <input type="hidden" id="hosimage" name = "hosimage" value="<%=locals.data[i].image_url%>"></input>
+            <div style="border-radius: 10px;text-shadow: 5px 5px 0px #2dc7ff"  class="w3-col m3 w3-card w3-shadow">
+              <img style="text-shadow: 5px 5px 0px #2dc7ff; border-radius: 10px;" class="w3-card" style="object-fit:cover;object-position:50% 50%;" width="100%" height="120px" src="" alt="Hospital Image">
+            </div>
+          <%}%>
+          <div class="w3-col m9">
+            <div class="w3-row w3-center ">
+              <input id="Hosid" name="Hosname" type="hidden" value="<%=locals.data[i].name%>">
+              <h3>
+                <b><%=locals.data[i].name%></b>
+              </h3><br>
+            </input>
+            </div>
+
+            <div class="w3-row upbprder w3-center">
+              <input type="hidden" id="hosadd" name ="hosadd" value="<%=locals.data[i].location.address1 %>, <%=locals.data[i].location.zip_code %>, <%=locals.data[i].location.state %>" >
+              <p><%=locals.data[i].location.address1 %>, <%=locals.data[i].location.zip_code %>, <%=locals.data[i].location.state %></p> </input>
+            </div>
+            <div class="w3-row w3-margin-left w3-center">
+              <div class="w3-col m6">
+                <input type="hidden" id="hosphone" name ="hosphone" value="<%=locals.data[i].display_phone %>">
+                <i class="fa fa-phone w3-text-pink"></i>&nbsp;&nbsp;<a class="w3-border" style="text-decoration:none;background:#E6E6E6;border-radius:20px;" href="tel:<%=locals.data[i].display_phone %>">&nbsp;&nbsp;<%=locals.data[i].display_phone %>&nbsp;&nbsp;</a></input>
+              </div>
+              <div class="w3-col m6">
+                <% if (locals.data[i].rating){%>
+                  <% if (parseFloat(locals.data[i].rating) < 1.0){%>
+                    <span class="fa fa-star-half-full checked"></span>
+                    <%}else if(parseFloat(locals.data[i].rating) >= 1.0 && parseFloat(locals.data[i].rating) < 1.5 ){%>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                    <%}else if(parseFloat(locals.data[i].rating) >= 1.5 && parseFloat(locals.data[i].rating) < 2.0 ){%>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star-half-full checked"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+
+                    <%}else if(parseFloat(locals.data[i].rating) >= 2.0 && parseFloat(locals.data[i].rating) < 2.5 ){%>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                    <%}else if(parseFloat(locals.data[i].rating) >= 2.5 && parseFloat(locals.data[i].rating) < 3.0 ){%>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star-half-full checked"></span>
+
+
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                    <%}else if(parseFloat(locals.data[i].rating) >= 3.0 && parseFloat(locals.data[i].rating) < 3.5 ){%>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+
+
+                      <span class="fa fa-star"></span>
+                      <span class="fa fa-star"></span>
+                    <%}else if(parseFloat(locals.data[i].rating) >= 3.5 && parseFloat(locals.data[i].rating) < 4.0 ){%>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star-half-full checked"></span>
+                      <span class="fa fa-star"></span>
+
+
+
+                    <%}else if(parseFloat(locals.data[i].rating) >= 4.0 && parseFloat(locals.data[i].rating) < 4.5 ){%>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+
+
+                      <span class="fa fa-star"></span>
+                    <%}else if(parseFloat(locals.data[i].rating) >= 4.5 && parseFloat(locals.data[i].rating) < 5.0 ){%>
+                      <span class="fa fa-star checked"></span>
+
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star-half-full checked"></span>
+                    <%}else if(parseFloat(locals.data[i].rating) >= 5.0){%>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                    <%}%>
+                    <a class="w3-border" style="text-decoration:none;background:#E6E6E6;border-radius:20px;" href="#">&nbsp;(<%=locals.data[i].review_count%>) reviews&nbsp;</a>
+                <%}%>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w3-row w3-margin">
+          <div class="w3-col m6 w3-center">
+            
+            <a style="text-decoration:none" target="_blank" href="http://www.google.com/maps/place/<%=locals.data[i].location.address1 %>, <%=locals.data[i].location.zip_code %>, <%=locals.data[i].location.state %>">
+              <button class="w3-button" onclick='window.open("http://www.google.com/maps/place/<%=locals.data[i].location.address1 %>, <%=locals.data[i].location.zip_code %>, <%=locals.data[i].location.state %>")' name="button"><font color="blue"><b>Navigate</b> &nbsp;&nbsp;<i class="fa fa-location-arrow"></i></font></button></a>
+          </div>
+          <div class="w3-col m6 w3-center">
+            <button class="w3-button" type="submit" id="proceedbutton" name="button"><font color="blue"><b>Proceed</b>&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></font></button>
+          </div>
+        </div>
+      </div>
+      </form>
+
+        <%}%>
+            <%}%>
+            <!-- Additonal filter based on non sponsored details -->
+            <% for(var i=0; i < locals.data.length; i++){%>
+                <%if(!locals.data[i].tag){%>
+                <form action="hospital" method="post">
+                  <input style="display:none;" type="text" name="hospitalid" value="<%=locals.data[i].id %>">
+                  <input style="display:none;" type="text" name="hospitalref" value="">
+                  <input style="display:none;" type="text" name="hospitalPrimarySession" value="">
+                  <input style="display:none;" type="text" name="hospitaltag" value="<%=locals.data[i].tag %>">
+            <div id="<%=locals.data[i].id%>" class="w3-container cards w3-margin-top w3-margin-bottom w3-white  w3-border w3-card">
+              <%if(locals.data[i].tag){%>
+                <div class="sponsored w3-card" style="background:black;width:115px;">
+                  <font color="white">&nbsp;
+                    <span class="fa fa-star w3-text-orange"></span>&nbsp;&nbsp;<%=locals.data[i].tag%>
+                  </font>
+                </div>
+              <%}%>
+              <div class="w3-row w3-margin" style="">
+                <%if(locals.data[i].image_url){%>
+                  <input type="hidden" id="hosimage" name = "hosimage" value="<%=locals.data[i].image_url%>">
+                </input>
+                <div class="w3-col m3 w3-card w3-shadow" style="border-radius: 10px;text-shadow: 5px 5px 0px #2dc7ff">
+                  <img style="text-shadow: 5px 5px 0px #2dc7ff; border-radius: 10px;" class="w3-card" style="object-fit:cover;object-position:50% 50%;" width="100%" height="120px" src="<%=locals.data[i].image_url%>" alt="Hospital Image">
+                </div>
+                <%}else{%>
+                  <input type="hidden" id="hosimage" name = "hosimage" value="<%=locals.data[i].image_url%>"></input>
+                  <div style="border-radius: 10px;text-shadow: 5px 5px 0px #2dc7ff"  class="w3-col m3 w3-card w3-shadow">
+                    <img style="text-shadow: 5px 5px 0px #2dc7ff; border-radius: 10px;" class="w3-card" style="object-fit:cover;object-position:50% 50%;" width="100%" height="120px" src="" alt="Hospital Image">
+                  </div>
+                <%}%>
+                <div class="w3-col m9">
+                  <div class="w3-row w3-center ">
+                    <input id="Hosid" name="Hosname" type="hidden" value="<%=locals.data[i].name%>">
+                    <h3>
+                      <b><%=locals.data[i].name%></b>
+                    </h3><br>
+                  </input>
+                  </div>
+
+                  <div class="w3-row upbprder w3-center">
+                    <input type="hidden" id="hosadd" name ="hosadd" value="<%=locals.data[i].location.address1 %>, <%=locals.data[i].location.zip_code %>, <%=locals.data[i].location.state %>" >
+                    <p><%=locals.data[i].location.address1 %>, <%=locals.data[i].location.zip_code %>, <%=locals.data[i].location.state %></p> </input>
+                  </div>
+                  <div class="w3-row w3-margin-left w3-center">
+                    <div class="w3-col m6">
+                      <input type="hidden" id="hosphone" name ="hosphone" value="<%=locals.data[i].display_phone %>">
+                      <i class="fa fa-phone w3-text-pink"></i>&nbsp;&nbsp;<a class="w3-border" style="text-decoration:none;background:#E6E6E6;border-radius:20px;" href="tel:<%=locals.data[i].display_phone %>">&nbsp;&nbsp;<%=locals.data[i].display_phone %>&nbsp;&nbsp;</a></input>
+                    </div>
+                    <div class="w3-col m6">
+                      <% if (locals.data[i].rating){%>
+                        <% if (parseFloat(locals.data[i].rating) < 1.0){%>
+                          <span class="fa fa-star-half-full checked"></span>
+                          <%}else if(parseFloat(locals.data[i].rating) >= 1.0 && parseFloat(locals.data[i].rating) < 1.5 ){%>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                          <%}else if(parseFloat(locals.data[i].rating) >= 1.5 && parseFloat(locals.data[i].rating) < 2.0 ){%>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star-half-full checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+
+                          <%}else if(parseFloat(locals.data[i].rating) >= 2.0 && parseFloat(locals.data[i].rating) < 2.5 ){%>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                          <%}else if(parseFloat(locals.data[i].rating) >= 2.5 && parseFloat(locals.data[i].rating) < 3.0 ){%>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star-half-full checked"></span>
+
+
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                          <%}else if(parseFloat(locals.data[i].rating) >= 3.0 && parseFloat(locals.data[i].rating) < 3.5 ){%>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+
+
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                          <%}else if(parseFloat(locals.data[i].rating) >= 3.5 && parseFloat(locals.data[i].rating) < 4.0 ){%>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star-half-full checked"></span>
+                            <span class="fa fa-star"></span>
+                          <%}else if(parseFloat(locals.data[i].rating) >= 4.0 && parseFloat(locals.data[i].rating) < 4.5 ){%>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+
+
+                            <span class="fa fa-star"></span>
+                          <%}else if(parseFloat(locals.data[i].rating) >= 4.5 && parseFloat(locals.data[i].rating) < 5.0 ){%>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star-half-full checked"></span>
+                          <%}else if(parseFloat(locals.data[i].rating) >= 5.0){%>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                          <%}%>
+                      <a class="w3-border" style="text-decoration:none;background:#E6E6E6;border-radius:20px;" href="#">&nbsp;(<%=locals.data[i].review_count%>) reviews&nbsp;</a>
+                      <%}%>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="w3-row w3-margin">
+                <div class="w3-col m3 w3-center">
+                 
+                  <a style="text-decoration:none" target="_blank" href="http://www.google.com/maps/place/<%=locals.data[i].location.address1 %>, <%=locals.data[i].location.zip_code %>, <%=locals.data[i].location.state %>">
+                    <button class="w3-button" onclick='window.open("http://www.google.com/maps/place/<%=locals.data[i].location.address1 %>, <%=locals.data[i].location.zip_code %>, <%=locals.data[i].location.state %>")' name="button"><font color="blue"><b>Navigates</b> &nbsp;&nbsp;<i class="fa fa-location-arrow"></i></font></button></a>
+                </div>
+                <div class="w3-col m5 w3-center">
+                  <button class="w3-button" type="submit" id="proceedbutton" name="button"><font color="blue"><b>Proceed</b>&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></font></button>
+                </div>
+                <div class="w3-col m3 w3-center">
+                  <a style="text-decoration:none" >
+                    <button class="w3-button w3-center" value="<%=locals.data[i].url%>" name="more"><font color="blue"><b><b>More</b></b>&nbsp;&nbsp;<i class="fa fa-gear"></i></font></button></a>
+                </div>
+              </div>
+            </div>
+            </form>
+            <%}%>
+                  <%}%>
+    <%}%>
+  </div>
+
+<!-- footer content insertion -->
+<%- include('footer.ejs')%>
+  <!-- End page content -->
+</div>
+
+<!-- Newsletter Modal -->
+<div id="newsletter" class="w3-modal">
+  <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
+    <div class="w3-container w3-white w3-center">
+      <form action="/peoplerequest" method="post">
+        <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
+      <h2 class="w3-wide">NEWSLETTER</h2>
+      <p>Join our mailing list to receive updates on latest hospitals around you.</p>
+      <p><input class="w3-input w3-border" type="text" name="nslettername" placeholder="Enter e-mail"></p>
+      <button type="submit" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+<%var openmapapi= locals.openmapkey%>
+<script>
+// sidenavbar
+
+var map;
+var infoapi = <%- JSON.stringify(datainfo); %>;
+var openmkey = "<%= openmapapi%>"
+
+var infowindowss;
+window.addEventListener("hashchange", function () {
+    window.scrollTo(window.scrollX, window.scrollY - 150);
+});
+
+function randomImage(){
+  var sample_images=[
+    "https://static.vecteezy.com/system/resources/previews/003/598/164/non_2x/taking-medical-sample-flat-color-illustration-health-checkup-clinical-diagnostics-patient-and-doctor-2d-cartoon-characters-with-hospital-space-blue-interior-on-background-vector.jpg",
+    "https://t3.ftcdn.net/jpg/03/10/61/34/240_F_310613409_bBe2DBeScgbycqwWqPStJK1PREze0u9S.jpg"
+  ];
+  var item = sample_images[Math.floor(Math.random()*sample_images.length)];
+  console.log(item);
+  return item;
+}
+
+function validate(){
+  var sort_filter = document.getElementById("sort_filter");
+  var speciality_filter = document.getElementById('speciality_filter');
+  var filter_button = document.getElementById('filterbutton');
+  var pharma = document.getElementById('pharma');
+
+  if(sort_filter.value || speciality_filter.value){
+    filter_button.innerHTML = "Filter &nbsp; <i class='fa fa-filter'></i> &nbsp; <i style='font-size:15px' class='fa w3-text-green'>&#xf058;</i>"
+  }else{
+    filter_button.innerHTML = "Filter &nbsp; <i class='fa fa-filter'></i>"
+  }
+
+}
+
+function removeFilter(){
+    var filter_button = document.getElementById('filterbutton');
+    filter_button.innerHTML = "Filter &nbsp; <i class='fa fa-filter'></i>"
+}
+
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+
+// Open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+function toggleinput(){
+  var switchstate = document.getElementById('slider');
+  var textinput = document.getElementById('city');
+
+  if(switchstate.checked){
+
+  geoLocation();
+  textinput.readOnly=true;
+  textinput.style.border = '3px solid #99080a';
+
+
+}else {
+  textinput.readOnly=false;
+  textinput.style.border = '1px solid black';
+}
+
+}
+
+function geoLocation(){
+  var options = {
+  enableHighAccuracy: true,
+  timeout: 1000,
+  maximumAge: 0
+};
+
+  if (navigator.geolocation) {
+    console.log("correct");
+  navigator.geolocation.getCurrentPosition(showPosition);
+} else {
+  console.log("error");
+}
+}
+
+function showPosition(position) {
+  var text_city = document.getElementById('city');
+  var text_lat = document.getElementById('access-lat-id')
+  var text_long = document.getElementById('access-long-id')
+  var position_lat;
+  var position_long;
+  var city;
+  var state;
+  console.log(position);
+  console.log(position.coords.latitude);
+  console.log(position.coords.longitude);
+  position_lat = position.coords.latitude
+  position_long = position.coords.longitude
+  text_lat.value = position_lat;
+  text_long.value = position_long;
+
+  var apiUrl = 'https://api.openweathermap.org/geo/1.0/reverse?lat='+position.coords.latitude+'&lon='+position.coords.longitude+'&appid='+openmkey;
+fetch(apiUrl).then(response => {
+  return response.json();
+}).then(data => {
+  // Work with JSON data here
+  position.coords.city = data[0].name
+  position.coords.state = data[0].state
+  city = data[0].name
+  state = data[0].state
+  console.log(city+"----"+state);
+  text_city.value = city+", "+state+", "+"USA"
+}).catch(err => {
+  // Do something for an error here
+  console.log(err);
+});
+initMap(position_lat, position_long);
+}
+
+function markermap(lati, longi, place, address , id){
+  myLatLng = { lat: parseFloat(lati), lng: parseFloat(longi) };
+
+  //create html window text
+  var contentString =
+  '<div id="content">' +
+  '<div id="siteNotice">' +
+  "</div>" +
+  '<h1 id="firstHeading" class="firstHeading">'+place+'</h1>' +
+  '<div id="bodyContent">' +
+  "<p>This facility is located at, "+address+" </p>" +
+  '<p> <a href="#'+id+'" class="w3-button w3-pink" type="button" name="Search">'+"Know more &nbsp; <i style='font-size:14px' class='fa'>&#xf0ab;</i>"+'</a>  </p>' +
+  "</div>" +
+  "</div>";
+
+  var marker1 = new google.maps.Marker({
+    position: myLatLng,
+    map:map,
+    title: place,
+  });
+  var infowindows = null;
+  infowindows = new google.maps.InfoWindow({
+  content: contentString,
+  ariaLabel: place,
+});
+
+
+
+marker1.addListener("click", () => {
+
+    infowindows.open({
+      anchor: marker1,
+      map,
+    });
+  });
+
+
+}
+
+function initMap(latdatas, longdatas) {
+  console.log(infoapi);
+  var serverlat=<%=latinfo%>;
+  var serverlong=<%=longinfo%>;
+  console.log(latdatas);
+  console.log(serverlat);
+  // beginning of function
+  const input = document.getElementById("city");
+  var zoomlevel=12;
+  var final_lat;
+  var final_long;
+
+  if (serverlat!=0.0 && serverlong!=0.0){
+      final_lat=serverlat;
+      final_long=serverlong;
+      zoomvalue=12;
+  }
+  // condition for checking US map or city map and zoom level
+else{
+    final_lat = 37.0902
+    final_long = -95.7129
+    zoomlevel = 4
+  }
+
+  if(latdatas && longdatas){
+    final_lat = latdatas
+    final_long = longdatas
+    zoomlevel = 12
+  }
+
+  const options = {
+  fields: ["formatted_address", "geometry", "name"],
+  strictBounds: false,
+  types: ["(regions)"],
+  componentRestrictions: { country: "us" },
+};
+
+const autocomplete = new google.maps.places.Autocomplete(input, options);
+
+map = new google.maps.Map(document.getElementById("map"), {
+zoom: zoomlevel,
+center: {lat:parseFloat(final_lat),lng:parseFloat(final_long)},
+
+});
+
+myLatLng= { lat: parseFloat(final_lat), lng: parseFloat(final_long) };
+
+const svgMarker = {
+  path: "M-1.547 12l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM0 0q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
+  fillColor: "blue",
+  fillOpacity: 0.6,
+  strokeWeight: 0,
+  rotation: 0,
+  scale: 2,
+  anchor: new google.maps.Point(0, 20),
+};
+var user_marker = new google.maps.Marker({
+  position: myLatLng,
+  icon: svgMarker,
+  map:map,
+  title: "You are here",
+});
+
+
+if(infoapi){
+  for (var i = 0; i < infoapi.length; i++) {
+    var addressdata = infoapi[i].location.address1 +" "+ infoapi[i].location.zip_code +" "+infoapi[i].location.state;
+  markermap(parseFloat(infoapi[i].coordinates.latitude), parseFloat(infoapi[i].coordinates.longitude), infoapi[i].name, addressdata , infoapi[i].id);
+  }
+}
+
+}
+
+window.initMap = initMap;
+
+
+</script>
+</body>
+</html>

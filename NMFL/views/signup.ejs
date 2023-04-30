@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>NMFL - Signup</title>
+<meta charset="UTF-8">
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" integrity="sha256-qM7QTJSlvtPSxVRjVWNM2OfTAz/3k5ovHOKmKXuYMO4=" crossorigin="anonymous"></script>
+<!-- include css content -->
+<style>
+
+  .back {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+  }
+
+  input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+  html::-webkit-scrollbar {
+display: none;
+}
+  /* Set a style for all buttons */
+  button {
+    background-color: #08ab88;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+  }
+
+  button:hover {
+    opacity:1;
+  }
+
+  .show{
+    float: right;
+    margin-top: -20px;
+  position: relative;
+  }
+
+  .container {
+    padding: 100px;
+  }
+
+  /* Clear floats */
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  .slate{
+    width: 100%;
+    padding-right: -20px;
+    height: 762px;
+  }
+
+  .frames{
+    position: relative;
+    top:120px;
+    width: 500px;
+    height: 600px;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 5%;
+  }
+
+  .admin-input-signup{
+    background: #e3e3e3;
+  }
+
+  .formframe{
+  margin-left: 25px;
+  margin-right: 25px;
+  }
+
+.buttons:hover
+{
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+div.scroll {
+  height: 450px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+.eye{
+  float: right;
+  margin-left: -50px;
+  margin-top: 25px;
+  position: relative;
+  z-index: 2;
+}
+
+#hide1{
+  display: none;
+}
+</style>
+</head>
+<body class="w3-content" style="max-width:1450px">
+
+  <!-- header content insertion -->
+  <%- include('header.ejs')%>
+
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-main back " style="margin-left:250px">
+
+
+    <!-- Push down content on small screens -->
+    <div class="w3-hide-large" style="margin-top:83px"></div>
+    <form action="/hospitalsignup" onSubmit = "return checkPassword(this)"  method= "post">
+      <div class=" slate">
+        <div style="margin-top:-10px;"  class="backcard">
+         <div class="w3-card w3-white frames">
+           <div class="w3-row w3-center">
+             <img style="margin-top:-25px;" width="80px" height="80px" src="https://s13639.pcdn.co/wp-content/uploads/2015/12/Android-App-Icon.png" alt="">
+           </div>
+           <div class="w3-row w3-center">
+             <h3><b>Hospital Registration</b></h3>
+           </div>
+           <div class="scroll">
+           <hr>
+           <div class="w3-row w3-container formframe">
+            <label>Hospital name</label>
+            <input class="w3-input admin-input-signup" type="text" name="hospitalname" required size="50">
+          </div>
+          <div class="w3-row w3-container formframe">
+            <label>Hospital Address:</label>
+            <input class="w3-input admin-input-signup" type="text" name="hospitaladdress" required size="50">
+          </div>
+          <div class="w3-row w3-container formframe">
+            <label>City Name:</label>
+            <input class="w3-input admin-input-signup" type="text" name="CityName" required size="50">
+          </div>
+          <div class="w3-row w3-container formframe">
+            <label>State:</label>
+            <input class="w3-input admin-input-signup" type="text" name="State" required size="50">
+          </div>
+          <div class="w3-row w3-container formframe">
+            <label>Zip Code:</label>
+            <input class="w3-input admin-input-signup" type="text" name="ZipCode" required size="50">
+          </div>
+
+          <div class="w3-row w3-container formframe">
+            <label>Contact Number:</label>
+            <input class="w3-input admin-input-signup" type="text" name="hospitalcontact" required size="50">
+        </div>
+        <hr>
+           <div class="w3-row w3-container formframe">
+             <label for="">Email ID:</label>
+             <input type="email" class="w3-input admin-input-signup " name="hospitalemail" required size="50">
+           </div>
+           <div class="w3-row w3-container formframe">
+             <label for="">Password:</label>
+             <input type="password" class="w3-input admin-input-signup " name="password" id="myinput" required size="50" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+             <span class = "eye" onclick="myFunction()">
+              <i id="hide1" class="fa-solid fa-eye"></i>
+              <i id="hide2"class="fa-solid fa-eye-slash"></i>
+            </span>
+           </div>
+          
+
+           <div class="w3-row w3-container formframe">
+             <label for="">Confirm Password:</label>
+             <input type="password" class="w3-input admin-input-signup " id="confirmpassword" name="confirmpassword"required size="50" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+             <span class = "eye" onclick="myFunctionreenter()">
+              <i id="hide1" class="fa-solid fa-eye"></i>
+              <i id="hide2"class="fa-solid fa-eye-slash"></i>
+            </span>
+           </div>
+          
+           <div style="margin-top:25px;" class="w3-row w3-container formframe">
+
+             <button type="submit" class="w3-button w3-pink">Register</button>
+           </div>
+           <div class="text-center">
+            Already have an account? <a href="partnerlogin" class="text-dark">Login</a>
+          </div>
+          </div>
+         </div>
+         </div>
+        </div>
+      </div>
+
+    </form>
+
+
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script>
+          function checkPassword(form) {
+              password = form.password.value;
+              confirmPassword = form.confirmpassword.value;
+
+              if (password == '')
+                  alert ("Please enter Password");
+
+              else if (confirmPassword == '')
+                  alert ("Please enter confirm password");
+
+              else if (password != confirmPassword) {
+                  alert ("\nPassword did not match: Please try again...")
+                  return false;
+              }
+              else{
+                  return true;
+              }
+          }
+          function myFunction(){
+            var x = document.getElementById("myinput");
+            var y = document.getElementById("hide1");
+            var z = document.getElementById("hide2");
+
+            if(x.type==="password"){
+              x.type = 'text';
+              y.style.display = "block";
+              z.style.display = "none";
+            }
+            else{
+              x.type = 'password';
+              y.style.display = "none";
+              z.style.display = "block";
+            }
+        }
+          function myFunctionreenter() {
+              var y = document.getElementById("confirmpassword");
+                  if (y.type === "password") {
+                      y.type = "text";
+                  } else {
+                      y.type = "password";
+                  }
+          }
+          const urlParams = new URLSearchParams(window.location.search);
+    const errorMessage = urlParams.get("error");
+    if (errorMessage) {
+
+      window.alert(errorMessage);
+    }
+      </script>
+
+
+</body>
+</html>

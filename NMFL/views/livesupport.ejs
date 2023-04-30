@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>NMFL - Support</title>
+  <link rel="stylesheet" href="./css/landing.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style media="screen">
+::selection{background-color: salmon; color: white;}
+.parallax > use{
+animation:move-forever 12s linear infinite;
+&:nth-child(1){animation-delay:-2s;}
+&:nth-child(2){animation-delay:-2s; animation-duration:5s}
+&:nth-child(3){animation-delay:-4s; animation-duration:3s}
+}
+
+@keyframes move-forever{
+0%{transform: translate(-90px , 0%)}
+100%{transform: translate(85px , 0%)}
+}
+
+
+
+.editorial {
+position: absolute;
+bottom: -20px;
+display: block;
+width: 100%;
+height: 15em;
+max-height: 100vh;
+margin: 0;
+}
+
+
+.content {
+
+font-family: 'Lato',sans-serif;
+text-align: center;  background-color: #2d55aa;
+text-align: center;
+min-height: 75vh;
+margin: -.1em 0 0 0;
+padding: 1em;
+color: #eee;
+font-size: 2em;
+font-weight: 300;
+}
+.content{font-size: 1em;}
+
+.content h1 {
+margin-top:-1.3em;
+font-weight: 100;
+font-size: 5em;
+user-select:none;
+cursor: default;
+}
+
+/*prevent many large-by-comparison ripples by shrinking the height*/
+@media (max-width:50em){
+.content h1{font-size: 12vmax}
+.editorial{height:17vw;}
+}
+
+h1{outline:none}
+
+.chip {
+  display: inline-block;
+  padding: 0 25px;
+  height: 50px;
+  font-size: 16px;
+  line-height: 50px;
+  border-radius: 25px;
+  background-color: #f1f1f1;
+}
+
+.chip img {
+  float: left;
+  margin: 0 10px 0 -25px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: black;
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1fd19f;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+
+}
+
+input {
+
+  background-color : #0e1926;
+  color: #1ba69a;
+}
+
+button{
+  background: #0e2747;
+  border: 0px;
+}
+
+button:hover{
+  background: #0e1926;
+}
+
+</style>
+</head>
+<body>
+
+<body>
+  <div style="position:absolute" class="hero-container">
+  <!--chat bot insertions-->
+  <%- include ('chatbot.ejs') %>
+      <svg class="ball --small-ball --dark-ball" viewBox="0 0 100 100">
+          <circle cx="50.389" cy="49.389" r="46.88" />
+      </svg>
+      <svg class="ball --medium-ball --light-ball" viewBox="0 0 100 100">
+          <circle cx="50.389" cy="49.389" r="46.88" />
+      </svg>
+      <svg class="ball --small-ball --dark-ball" viewBox="0 0 100 100">
+          <circle cx="50.389" cy="49.389" r="46.88" />
+      </svg>
+      <svg class="ball --medium-ball --dark-ball" viewBox="0 0 100 100">
+          <circle cx="50.389" cy="49.389" r="46.88" />
+      </svg>
+      <svg class="ball --small-ball --light-ball" viewBox="0 0 100 100">
+          <circle cx="50.389" cy="49.389" r="46.88" />
+      </svg>
+      <svg class="ball --large-ball --dark-ball" viewBox="0 0 100 100">
+          <circle cx="50.389" cy="49.389" r="46.88" />
+      </svg>
+      <svg class="ball --small-ball --light-ball" viewBox="0 0 100 100">
+          <circle cx="50.389" cy="49.389" r="46.88" />
+      </svg>
+      <svg class="ball --small-ball --inbetween-ball" viewBox="0 0 100 100">
+          <circle cx="50.389" cy="49.389" r="46.88" />
+      </svg>
+      <svg class="ball --medium-ball --dark-ball" viewBox="0 0 100 100">
+          <circle cx="50.389" cy="49.389" r="46.88" />
+      </svg>
+      <svg class="ball --small-ball --inbetween-ball" viewBox="0 0 100 100">
+          <circle cx="50.389" cy="49.389" r="46.88" />
+      </svg>
+      <div class="orga-watermark"><small>SUPPORT</small></div>
+  </div>
+    <div class="web-content-container--limiter">
+        <!--HEADER HEADER HEADER HEADER HEADER -->
+        <header class="header-container w3-card" id="header">
+            <div class="header-container__image-container">
+              <img src="" id="header-img">
+                
+                    <g id="logo">
+                        <g>
+                            <g>
+                                <path d="M150.789,87.335c-5.759,0 -10.946,-1.161 -15.56,-3.483c-4.614,-2.323 -8.252,-5.806 -10.915,-10.451c-2.663,-4.645 -3.995,-10.281 -3.995,-16.907c0,-6.503 1.363,-12.154 4.088,-16.954c2.725,-4.8 6.379,-8.469 10.962,-11.008c4.582,-2.539 9.599,-3.809 15.049,-3.809c4.149,0 7.881,0.743 11.194,2.229c3.313,1.487 6.147,3.407 8.5,5.76l-8.361,10.219c-1.672,-1.487 -3.329,-2.601 -4.97,-3.345c-1.641,-0.743 -3.576,-1.114 -5.806,-1.114c-4.211,0 -7.648,1.563 -10.311,4.691c-2.663,3.127 -3.995,7.385 -3.995,12.773c0,5.76 1.301,10.142 3.902,13.145c2.601,3.004 6.565,4.506 11.891,4.506c1.981,0 3.53,-0.372 4.644,-1.115l0,-8.361l-8.918,0l0,-13.005l23.039,0l0,28.798c-2.23,2.167 -5.171,3.948 -8.825,5.341c-3.654,1.394 -7.525,2.09 -11.613,2.09Z" />
+                                <path d="M215.446,86.221l-10.405,-20.252l-6.131,0l0,20.252l-15.978,0l0,-60.383l22.852,0c7.246,0 13.083,1.502 17.511,4.505c4.429,3.004 6.643,8.005 6.643,15.003c0,4.149 -0.867,7.679 -2.602,10.59c-1.734,2.911 -4.118,5.202 -7.153,6.875l13.099,23.41l-17.836,0Zm-16.536,-32.886l5.76,0c3.158,0 5.558,-0.681 7.199,-2.044c1.641,-1.362 2.462,-3.344 2.462,-5.945c0,-2.539 -0.79,-4.32 -2.369,-5.342c-1.579,-1.021 -4.01,-1.532 -7.292,-1.532l-5.76,0l0,14.863Z" />
+                                <rect x="241.457" y="25.838" width="15.978" height="60.383" />
+                                <path d="M267.096,76.559l24.711,-37.344l-22.295,0l0,-13.377l41.989,0l0,9.661l-24.711,37.344l24.897,0l0,13.378l-44.591,0l0,-9.662Z" />
+                                <path d="M321.162,25.838l15.979,0l0,22.481l18.022,0l0,-22.481l15.978,0l0,60.383l-15.978,0l0,-23.968l-18.022,0l0,23.968l-15.979,0l0,-60.383Z" />
+                                <path d="M384.518,25.838l15.978,0l0,47.005l22.853,0l0,13.378l-38.831,0l0,-60.383Z" />
+                                <rect x="433.753" y="25.838" width="15.978" height="60.383" />
+                                <path d="M463.109,25.838l39.016,0l0,13.377l-23.038,0l0,9.475l19.694,0l0,13.377l-19.694,0l0,10.776l23.967,0l0,13.378l-39.945,0l0,-60.383Z" />
+                            </g>
+                        </g>
+                        <g>
+                            <g>
+                                <path d="M50.451,99.446c-4.994,3.33 -6.673,1.059 -6.068,-1.816c0.606,-2.875 -1.953,-4.086 -4.374,-4.086c-2.421,0 -4.98,1.211 -4.375,4.086c0.606,2.875 -1.073,5.146 -6.067,1.816c-2.511,-1.674 -3.941,-3.124 -4.987,-4.647c-1.125,-2.491 -1.278,-5.516 2.788,-5.937c4.388,-0.454 9.614,0.445 12.641,0.445c3.026,0 8.253,-0.899 12.641,-0.445c4.066,0.421 3.912,3.446 2.787,5.937c-1.045,1.523 -2.475,2.973 -4.986,4.647Zm25.954,-52.437c-3.405,-4.919 -1.763,13.084 -3.579,21.105c-1.816,8.021 -3.966,10.399 -7.406,14.988c-1.228,1.638 -5.396,3.087 -6.124,4.374c-3.745,-4.576 -5.141,-5.082 -9.715,-6.191c-4.922,-1.193 -7.894,1.798 -9.572,1.884c-1.679,-0.086 -4.65,-3.077 -9.572,-1.884c-4.574,1.109 -6.023,1.772 -9.716,6.191c-0.727,-1.287 -4.909,-2.726 -6.124,-4.374c-3.44,-4.67 -4.786,-7.156 -7.296,-14.988c-2.406,-7.509 -2.313,-24.265 -3.689,-21.105c-1.422,3.265 -1.106,18.652 1.618,27.732c2.724,9.08 6.636,12.915 8.755,20.634c2.118,7.718 9.074,15.618 26.024,15.618c16.95,0 23.905,-7.9 26.024,-15.618c2.119,-7.719 6.03,-11.554 8.754,-20.634c2.724,-9.08 3.646,-24.804 1.618,-27.732Z" />
+                                <path d="M68.856,50.078c-0.031,-2.25 -1.882,-4.051 -4.131,-4.021l-16.834,0.229c-2.25,0.03 -4.051,1.881 -4.02,4.131l0.11,8.151c0.031,2.249 1.882,4.05 4.131,4.02l16.834,-0.229c2.249,-0.03 4.051,-1.881 4.02,-4.13l-0.11,-8.151Z" />
+                                <path d="M35.972,50.412c0.03,-2.249 -1.772,-4.099 -4.021,-4.129l-16.835,-0.223c-2.249,-0.03 -4.099,1.772 -4.129,4.022l-0.108,8.151c-0.03,2.249 1.772,4.1 4.022,4.129l16.834,0.223c2.249,0.03 4.1,-1.772 4.129,-4.022l0.108,-8.151Z" />
+                                <path d="M76.805,37.654l0.466,12.434l-3.102,-0.242l0.225,-12.192l2.411,0Z" />
+                                <path d="M2.499,24.241c3.002,-7.056 7.224,-14.509 23.254,-15.05c3.77,-0.128 8.125,-0.306 12.671,-0.325c4.549,0.019 8.904,0.197 12.676,0.325c16.031,0.541 20.615,9.332 23.617,16.387c2.875,6.757 -0.438,30.719 -0.438,30.719c0,0 -1.889,-4.341 -1.358,-9.877c0.33,-3.459 -0.359,-13.19 -5.658,-16.97c-4.329,-3.086 -2.21,-8.755 -12.367,-10.816c-5.926,-0.92 -11.475,-1.354 -16.472,-1.356c-4.992,0.002 -12.432,0.436 -18.359,1.356c-10.155,2.061 -10.864,7.432 -12.366,10.816c-2.64,5.95 -3.231,13.511 -2.9,16.97c0.53,5.536 -1.794,14.575 -1.794,14.575c0,0 -3.381,-29.998 -0.506,-36.754Z" />
+                                <path d="M39.697,17.463c0,0 -4.957,-3.997 -19.527,-2.419c-14.565,1.577 -10.642,-3.471 -8.401,-5.468c2.242,-1.998 12.634,-11.489 39.638,-7.572c19.46,2.822 29.156,28.698 26.081,42.228c-0.587,2.587 -3.039,2.281 -6.924,4.41c0,0 0.79,-14.88 -8.665,-24.817c4.097,11.041 0.736,16.325 0.736,16.325c0,0 2.029,-29.602 -22.938,-22.687Z" />
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+                </img>
+            </div>
+            <nav class="header-container__navbar" id="nav-bar">
+                <div class="navbar-burger-container">
+                    <input type="checkbox" class="checkbox">
+                    <div class="span-container">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="navbar-burger-container__ul-container">
+                        <a href="/" class="navbar-link nav-link"><span class="--turq">NMFL</span></a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <br><br><br>
+        <div class="service-container" id="services">
+            <div class="service-container__heading-container">
+                <div class="service-container__heading --main-area-heading">Phone Support</div>
+                <div class="service-container__explainer --explainer --body-text-size">[ We provide 24x7 live support ]</div>
+                <br><br>
+                <div class="price-container__explainer --explainer --body-text-size">
+<br><br>
+                  <h2> <a href="tel:6028152990"><i class="fa fa-mobile" style="font-size:40px;color:teal"></i> +1 602-815-2990</h2></a> </div>
+
+            </div>
+            <div class="price-container__form-container" id="pricing">
+                <form id="form">
+                    <a style="text-align:center" class="form-container__button btn" href="tel:+16028152990">
+                      <font style="font-size:30px;" >Call us</font>
+                    </a>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="web-content-container--limiter">
+        
+        <div class="service-container" id="services">
+            <div class="service-container__heading-container">
+                <div class="service-container__heading --main-area-heading">Email Support</div>
+
+                <div class="service-container__explainer --explainer --body-text-size">[ Incase of issues connecting via phone, send us email  ]</div>
+                <br><br><br><br><br><br>
+                <div class="w3-col m7 w3-card card">
+                  <form class="w3-container w3-card-4 w3-padding-16" style="background:#0e2747" action="/livesupport" method="post" >
+
+                  <div class="w3-section">
+                    <label><font color="#1ba69a" >Name*</font></label>
+                    <input style="border:0px;" class="w3-input" type="text" name="supportname" required>
+                  </div>
+                  <div class="w3-section">
+                    <label><font color="#1ba69a" >Email*</font></label>
+                    <input style="border:0px;" class="w3-input" type="email" name="supportemail" required>
+                  </div>
+                  <div class="w3-section">
+                    <label><font color="#1ba69a" >Phone Number (+1)</font></label>
+                    <input style="border:0px;" class="w3-input" type="number" name="supportphone" required>
+                  </div>
+                  <div class="w3-section">
+                    <label><font color="#1ba69a" >Message*</font></label>
+                    <input style="border:0px;" class="w3-input" type="text" name="supportmessage" required>
+                  </div>
+
+                  <button style="" type="submit" class=" w3-right "><font color="#1ba69a" >Send &nbsp;&nbsp;<i class="fa fa-arrow-right" style="font-size:18px;color:teal"></i></font></button>
+                  </form>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+<br><br><br><br><br><br><br>
+    <!--PRICE CONTAINER PRICE CONTAINER PRICE CONTAINER PRICE CONTAINER PRICE CONTAINER  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <br>
+    <footer class="footer-container"></footer>
+    <br>
+    <svg style="margin-top: 230px;position: relative;" class="editorial"
+         xmlns="http://www.w3.org/2000/svg"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         viewBox="0 24 150 30"
+         preserveAspectRatio="none">
+     <defs>
+     <path id="gentle-wave"
+     d="M-160 44c30 0
+        58-18 88-18s
+        58 18 88 18
+        58-18 88-18
+        58 18 88 18
+        v44h-352z" />
+      </defs>
+      <g class="parallax">
+       <use xlink:href="#gentle-wave" x="50" y="0" fill="#4579e2"/>
+       <use xlink:href="#gentle-wave" x="50" y="3" fill="#3461c1"/>
+       <use xlink:href="#gentle-wave" x="50" y="6" fill="#2d55aa"/>
+      </g>
+    </svg>
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet">
+
+
+
+
+</body>
+</body>
+</html>
